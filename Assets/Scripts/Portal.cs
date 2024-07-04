@@ -68,7 +68,8 @@ public class Portal : MonoBehaviour
             }
 
             player.transform.position = newPlayerPosition;
-            player.transform.rotation = Quaternion.Euler(0, 180, 0);
+            player.transform.rotation = Quaternion.Euler(0, -90, 0);
+            //player.transform.Rotate(0, -90, 0);
 
             if (cc != null)
             {
