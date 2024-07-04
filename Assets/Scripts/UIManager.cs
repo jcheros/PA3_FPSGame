@@ -16,6 +16,9 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        gameWinContainer.SetActive(false);
+        gameOverContainer.SetActive(false);
+
         // Suscribirse al evento onStatsChanged del GameController
         GameController.Instance.onStatsChanged.AddListener(UpdateGameText);
 
@@ -24,6 +27,9 @@ public class UIManager : MonoBehaviour
 
         // Suscribirse al evento onGameWin del GameController
         GameController.Instance.onGameWin.AddListener(ShowGameWinText);
+
+        // Suscribirse al evento onGameRestart del GameController
+        GameController.Instance.onGameRestart.AddListener(GameRestarStart);
 
         // Actualizar el texto inicial
         UpdateGameText();
@@ -56,5 +62,11 @@ public class UIManager : MonoBehaviour
     public void ShowGameWinText()
     {
         gameWinContainer.SetActive(true);
+    }
+
+    public void GameRestarStart()
+    {
+        gameWinContainer.SetActive(false);
+        gameOverContainer.SetActive(false);
     }
 }

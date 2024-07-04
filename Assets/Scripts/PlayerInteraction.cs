@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerInteraction : MonoBehaviour
 {
     public float damageInterval = 2f; // Intervalo en segundos entre cada daño
     public AudioClip audioClipCelebration;

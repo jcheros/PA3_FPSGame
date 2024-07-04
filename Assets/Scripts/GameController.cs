@@ -24,6 +24,7 @@ public class GameController : MonoBehaviour
     public UnityEvent onLivesChanged;
     public UnityEvent onGameOver;
     public UnityEvent onGameWin;
+    public UnityEvent onGameRestart;
     public UnityEvent<int> onScoreChanged;
     public UnityEvent onStatsChanged; // Evento para cualquier cambio de estadísticas
     public UnityEvent onPortalEnabled;
@@ -114,7 +115,8 @@ public class GameController : MonoBehaviour
     {
         Time.timeScale = 1f; // Reinicia el tiempo
         ResetGame();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reinicia la escena actual
+        onGameRestart.Invoke();
+        SceneManager.LoadScene("Escena_1"); // Reinicia la escena actual
     }
 
     private void AddScore(int points)
