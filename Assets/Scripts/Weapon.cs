@@ -28,35 +28,40 @@ public class Weapon : MonoBehaviour
         centroCamara.x = Screen.width / 2;
         centroCamara.y = Screen.height / 2;
         nextTimeToShoot = Time.time;
+        DontDestroyOnLoad(gameObject);
     }
 
     void Update()
     {
-        if (autoShoot)
+        if (!GameController.Instance.isGameOver())
         {
-            if (Input.GetKey(KeyCode.X) && Time.time >= nextTimeToShoot)
+            if (autoShoot)
             {
-                nextTimeToShoot = Time.time + 1 / shootRate;
-                
-                if (autoShootSound != null)
+                if (Input.GetKey(KeyCode.X) && Time.time >= nextTimeToShoot)
                 {
-                    autoShootSound.Play();
-                }
+                    nextTimeToShoot = Time.time + 1 / shootRate;
 
-                shoot();
+                    if (autoShootSound != null)
+                    {
+                        autoShootSound.Play();
+                    }
+
+                    shoot();
+                }
             }
-        } else
-        {
-            if (Input.GetButtonDown("Fire1"))
+            else
             {
-                nextTimeToShoot = Time.time + 1 / shootRate;
-
-                if (basicShootSound != null)
+                if (Input.GetButtonDown("Fire1"))
                 {
-                    basicShootSound.Play();
-                }
+                    nextTimeToShoot = Time.time + 1 / shootRate;
 
-                shoot();
+                    if (basicShootSound != null)
+                    {
+                        basicShootSound.Play();
+                    }
+
+                    shoot();
+                }
             }
         }  
     }

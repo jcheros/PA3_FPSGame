@@ -202,4 +202,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74eb07133a4b312468ffe476400b5284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: newScene
+  sceneToLoad: Escena_2
+  playerPrefab: {fileID: 3613093830445922283, guid: de5ce6aa874aa01489455d40b51dc7e2, type: 3}

@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -16,10 +18,12 @@ public class GameController : MonoBehaviour
     private int coinsCollected;
     private int playerScore;
     private bool enablePortal = false;
+    private bool gameOverFlag = false;
 
     // Eventos
     public UnityEvent onLivesChanged;
     public UnityEvent onGameOver;
+    public UnityEvent onGameWin;
     public UnityEvent<int> onScoreChanged;
     public UnityEvent onStatsChanged; // Evento para cualquier cambio de estadísticas
     public UnityEvent onPortalEnabled;
@@ -50,6 +54,7 @@ public class GameController : MonoBehaviour
         barrelsDestroyed = 0;
         coinsCollected = 0;
         playerScore = 0;
+        gameOverFlag = false;
         onStatsChanged.Invoke();
     }
 
@@ -105,6 +110,13 @@ public class GameController : MonoBehaviour
         onStatsChanged.Invoke();
     }
 
+    public void RestartGame()
+    {
+        Time.timeScale = 1f; // Reinicia el tiempo
+        ResetGame();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reinicia la escena actual
+    }
+
     private void AddScore(int points)
     {
         playerScore += points;
@@ -114,9 +126,20 @@ public class GameController : MonoBehaviour
 
     private void GameOver()
     {
+        Debug.Log("GameOver");
+        gameOverFlag = true;
         onGameOver.Invoke();
         onStatsChanged.Invoke();
-        // TODO: Agregar lógica adicional para el fin del juego
+        Time.timeScale = 0f; // Pausa el juego
+    }
+
+    public void GameWin()
+    {
+        Debug.Log("GameWin");
+        gameOverFlag = true;
+        onGameWin.Invoke();
+        onStatsChanged.Invoke();
+        Time.timeScale = 0f; // Pausa el juego
     }
 
     // Getters para acceder a los valores desde otros scripts
@@ -127,4 +150,5 @@ public class GameController : MonoBehaviour
     public int GetCoinsCollected() => coinsCollected;
     public int GetPlayerScore() => playerScore;
     public bool isPortalEnable() => enablePortal;
+    public bool isGameOver() => gameOverFlag;
 }
