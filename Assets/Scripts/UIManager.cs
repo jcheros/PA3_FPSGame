@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public Text indicatorsText;
+    public GameObject gameWinContainer;
+    public GameObject gameOverContainer;
 
     void Awake()
     {
@@ -16,6 +18,12 @@ public class UIManager : MonoBehaviour
     {
         // Suscribirse al evento onStatsChanged del GameController
         GameController.Instance.onStatsChanged.AddListener(UpdateGameText);
+
+        // Suscribirse al evento onGameOver del GameController
+        GameController.Instance.onGameOver.AddListener(ShowGameOverText);
+
+        // Suscribirse al evento onGameWin del GameController
+        GameController.Instance.onGameWin.AddListener(ShowGameWinText);
 
         // Actualizar el texto inicial
         UpdateGameText();
@@ -37,5 +45,16 @@ public class UIManager : MonoBehaviour
             "MONEDAS RECOGIDAS: {4}",
             lives, points, boxes, barrels, coins
         );
+    }
+
+    public void ShowGameOverText()
+    {
+        Debug.Log("In ShowGameOverText");
+        gameOverContainer.SetActive(true);
+    }
+
+    public void ShowGameWinText()
+    {
+        gameWinContainer.SetActive(true);
     }
 }
