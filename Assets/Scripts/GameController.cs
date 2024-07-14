@@ -116,7 +116,9 @@ public class GameController : MonoBehaviour
         Time.timeScale = 1f; // Reinicia el tiempo
         ResetGame();
         onGameRestart.Invoke();
-        SceneManager.LoadScene("Escena_1"); // Reinicia la escena actual
+        
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        StartCoroutine(FPSSceneManager.Instance.TransitionToNewScene("Escena_1", player, new Vector3(0, 1.025f, 7.11f)));
     }
 
     private void AddScore(int points)
